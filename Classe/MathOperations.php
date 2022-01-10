@@ -1,5 +1,5 @@
 <?php
-namespace Class;
+namespace Classe;
 /**
  * Une class est une représentation des objets que l'on va créer
  */

@@ -1,5 +1,5 @@
 <?php
-namespace Class\Animaux;
+namespace Classe\Animaux;
 class Chat extends Mammifere
 {
     public function getCri(): string

@@ -1,19 +1,19 @@
 <?php
 
 // On charge les class dont on a besoin
-// require "Class/MathOperations.php";
-// require "Class/MaClass.php";
-// require "Class/Animaux/Chien.php";
+// require "Classe/MathOperations.php";
+// require "Classe/MaClass.php";
+// require "Classe/Animaux/Chien.php";
 
 define ("ROOT", __DIR__);
 
-require ROOT. "/Class/Autoloader.php";
-\Class\Autoloader::register();
+require ROOT . "/Classe/Autoloader.php";
+\Classe\Autoloader::register();
 
 
-use Class\MathOperations;
-use Class\MaClass;
-use Class\Animaux\Chien;
+use Classe\MathOperations;
+use Classe\MaClass;
+use Classe\Animaux\Chien;
 
 // On instancie la class MathOperations pour créer un objet lié
 // à cette class et contenant la méthode addition

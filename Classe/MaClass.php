@@ -1,5 +1,5 @@
 <?php
-namespace Class;
+namespace Classe;
 
 /**
  * Une classe contient des propriétés et des méthodes
