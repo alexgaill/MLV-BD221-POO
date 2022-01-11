@@ -5,7 +5,7 @@
 // require "Classe/MaClass.php";
 // require "Classe/Animaux/Chien.php";
 
-define ("ROOT", __DIR__);
+const ROOT = __DIR__;
 
 require ROOT . "/Classe/Autoloader.php";
 \Classe\Autoloader::register();
