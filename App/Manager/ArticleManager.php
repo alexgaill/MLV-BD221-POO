@@ -6,17 +6,27 @@ use Core\Database\Database;
 
 class ArticleManager
 {
+    /**
+     * @var \PDO|null
+     */
+    private \PDO|null $pdo;
 
+    /**
+     * @throws \Exception
+     */
     public function __construct()
     {
-        $this->pdo = (new Database())->pdo;
-        is_null($this->pdo) ? throw new \Exception("Erreur dans les identifiants de connexion à la BDD") : null;
+        try {
+            $this->pdo = (new Database())->pdo;
+            is_null($this->pdo) ? throw new \Exception("Erreur dans les identifiants de connexion à la BDD") : "";
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 
     /**
      * Page d'accueil du site qui contient les 5 derniers articles
      * @return void
-     * @throws \Exception
      */
     public function index()
     {
@@ -30,15 +40,15 @@ class ArticleManager
     /**
      * Page d'article affichant les données en fonction de l'id de l'article sélectionné
      * @return void
-     * @throws \Exception
      */
     public function single()
     {
         $id = (isset($_GET["id"]) && !empty($_GET["id"] && is_numeric($_GET["id"]))) ? $_GET["id"] : null;
         if ($id) {
             $statement = "SELECT * FROM article WHERE id = $id";
-            $query = $this->pdo->query($statement);
-            $article = $query->fetchObject();
+            $query = $this->pdo->query($statement, \PDO::FETCH_CLASS, "App\Entity\Article");
+            // $article = $query->fetchObject();
+            $article = $query->fetch();
             include ROOT . "/templates/article/single.phtml";
         } else {
             echo "Nous ne trouvons pas l'article recherché";
@@ -48,7 +58,6 @@ class ArticleManager
     /**
      * Enregistre un article dans la BDD
      * @return void
-     * @throws \Exception
      */
     public function save()
     {
@@ -64,7 +73,7 @@ class ArticleManager
             $prepare->execute($_POST);
         }
         $statementCat = "SELECT * FROM categorie";
-        $query = $this->pdo->query($statementCat, \PDO::FETCH_OBJ);
+        $query = $this->pdo->query($statementCat, \PDO::FETCH_CLASS, "App\Entity\Article");
         $cats = $query->fetchAll();
 
         include ROOT . "/templates/article/save.phtml";
@@ -73,7 +82,6 @@ class ArticleManager
     /**
      * Modifie les données d'un article sélectionné en fonction de son id
      * @return void
-     * @throws \Exception
      */
     public function update()
     {
@@ -84,7 +92,7 @@ class ArticleManager
             $article = $query->fetchObject();
 
             $statementCat = "SELECT * FROM categorie";
-            $query = $this->pdo->query($statementCat, \PDO::FETCH_OBJ);
+            $query = $this->pdo->query($statementCat, \PDO::FETCH_CLASS, "App\Entity\Article");
             $cats = $query->fetchAll();
             include ROOT . "/templates/article/update.phtml";
         } else {
@@ -111,7 +119,6 @@ class ArticleManager
     /**
      * Supprime un article en fonction de son id
      * @return void
-     * @throws \Exception
      */
     public function delete ()
     {
