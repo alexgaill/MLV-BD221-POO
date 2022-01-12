@@ -27,12 +27,7 @@ class Database
     /**
      * @var \PDO|null
      */
-    public \PDO|null $pdo = null;
-
-    /**
-     * @var string|null
-     */
-    public string|null $error;
+    protected \PDO|null $pdo = null;
 
     /**
      * Connecte le projet à la BDD
