@@ -45,7 +45,6 @@ class ArticleModel extends Database{
 
         $prepare = $this->pdo->prepare($statement);
         $prepare->execute($data);
-        $this->pdo->commit();
         return $this->pdo->lastInsertId();
         // $lastId = $this->pdo->lastInsertId();
         // if ($lastId > 0) {
@@ -73,7 +72,6 @@ class ArticleModel extends Database{
                              WHERE id = $id";
         $prepare = $this->pdo->prepare($statement);
         $prepare->execute($data);
-        $this->pdo->commit();
         return $this->pdo->lastInsertId();
     }
 

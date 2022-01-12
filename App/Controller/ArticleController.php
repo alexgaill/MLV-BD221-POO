@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Model\ArticleModel;
 use App\Model\CategorieModel;
 use Core\Controller\DefaultController;
@@ -52,9 +53,10 @@ class ArticleController extends DefaultController{
             isset($_POST["content"]) && !empty($_POST["content"]) &&
             isset($_POST["categorieId"]) && !empty($_POST["categorieId"])
         ){
-            $article = $this->model->save($_POST);
-            if ($article > 0) {
-                // TODO: Rediriger vers la méthode single en passant l'id
+            $article = new Article($_POST);
+            $articleId = $this->model->save($article());
+            if ($articleId > 0) {
+                header("Location: ?page=singleArt&id=$articleId");
             } else {
                 $this->render("error/error", [
                     "message" => "Une erreur s'est produite durant l'enregistrement de l'article."
@@ -90,10 +92,11 @@ class ArticleController extends DefaultController{
             isset($_POST["content"]) && !empty($_POST["content"]) &&
             isset($_POST["categorie_id"]) && !empty($_POST["categorie_id"])
         ){
+            $article = new Article($_POST);
+            $articleId = $this->model->update($article(), $id);
+            if ($articleId > 0) {
+                header("Location: ?page=singleArt&id=$articleId");
 
-            $article = $this->model->update($_POST, $id);
-            if ($article > 0) {
-                // TODO: Rediriger vers la méthode single en passant l'id
             } else {
                 $this->render("error/error", [
                     "message" => "Une erreur s'est produite durant la mise à jour de l'article."
@@ -112,7 +115,7 @@ class ArticleController extends DefaultController{
         if ($id) {
             $delete = $this->model->delete($id);
             if ($delete == true) {
-                // TODO: Rediriger vers la méthode single en passant l'id
+                header("Location: index.php");
             } else {
                 $this->render("error/error", [
                     "message" => "Une erreur s'est produite durant la mise à jour de l'article."

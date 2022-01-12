@@ -2,7 +2,7 @@
 <h3>Retrouvez ici nos derniers articles</h3>
 
 <ul>
-    <?php foreach ($articles as $line) : ?>
-        <li><a href="#"><?= $line->getTitle() ?></a></li>
+    <?php foreach ($articles as $article) : ?>
+        <li><a href="?page=singleArt&id=<?= $article->getId() ?>"><?= $article->getTitle() ?></a></li>
     <?php endforeach; ?>
 </ul>

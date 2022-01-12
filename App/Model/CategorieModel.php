@@ -1,7 +1,9 @@
 <?php
 namespace App\Model;
 
-class CategorieModel {
+use Core\Database\Database;
+
+class CategorieModel extends Database{
 
     /**
      * Retourne toutes les catégories de la BDD
