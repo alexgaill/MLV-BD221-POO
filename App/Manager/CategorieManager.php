@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use App\Entity\Categorie;
 use Core\Database\Database;
 
 class CategorieManager
@@ -60,7 +61,12 @@ class CategorieManager
      */
     public function save()
     {
+        // TODO: Ajout de l'utilisation de faker
+
         if (isset($_POST["name"]) && !empty($_POST["name"])){
+            $categorie = new Categorie($_POST);
+            // $categorie->hydrate($_POST);
+
             $statementArt = "INSERT INTO categorie (name) VALUES (:name)";
             $prepare = $this->pdo->prepare($statementArt);
             $prepare->execute($_POST);

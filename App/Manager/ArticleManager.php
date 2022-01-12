@@ -2,6 +2,7 @@
 
 namespace App\Manager;
 
+use App\Entity\Article;
 use Core\Database\Database;
 
 class ArticleManager
@@ -64,18 +65,20 @@ class ArticleManager
         if (
             isset($_POST["title"]) && !empty($_POST["title"]) &&
             isset($_POST["content"]) && !empty($_POST["content"]) &&
-            isset($_POST["categorie_id"]) && !empty($_POST["categorie_id"])
+            isset($_POST["categorieId"]) && !empty($_POST["categorieId"])
         ){
+            $article = new Article($_POST);
+
             $statementArt = "INSERT INTO article (title, content, categorie_id, user_id)
                                VALUES (:title, :content, :categorie_id, 1)";
 
             $prepare = $this->pdo->prepare($statementArt);
-            $prepare->execute($_POST);
+            // On utilise l'objet article comme une fonction en ajoutant des () après la variable
+            $prepare->execute($article());
         }
         $statementCat = "SELECT * FROM categorie";
-        $query = $this->pdo->query($statementCat, \PDO::FETCH_CLASS, "App\Entity\Article");
+        $query = $this->pdo->query($statementCat, \PDO::FETCH_CLASS, "App\Entity\Categorie");
         $cats = $query->fetchAll();
-
         include ROOT . "/templates/article/save.phtml";
     }
 

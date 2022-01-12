@@ -1,8 +1,9 @@
 <?php
 namespace App\Entity;
 
-class Article
-{
+use Core\Entity\DefaultEntity;
+
+class Article extends DefaultEntity {
     /**
      * @var int
      */
@@ -32,6 +33,17 @@ class Article
      * @var string|null
      */
     private string|null $picture;
+
+    /**
+     * Méthode magique utilisée lorsqu'on utilise l'objet comme une fonction
+     */
+    public function __invoke() {
+        return [
+            "title" => $this->title,
+            "content" => $this->content,
+            "categorie_id" => $this->categorie_id
+        ];
+    }
 
     /**
      * @return int

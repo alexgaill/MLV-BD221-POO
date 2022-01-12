@@ -6,5 +6,5 @@ require "vendor/autoload.php";
 use App\Manager\ArticleManager;
 
 $manager = new ArticleManager();
-$manager->index();
+$manager->save();
 
