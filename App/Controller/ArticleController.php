@@ -17,6 +17,9 @@ final class ArticleController extends DefaultController{
 
     public function __construct()
     {
+        // Si le parent a un constructeur, celui-ci est écrasé par le constructeur de l'enfant
+        // Pour pouvoir l'utiliser, on doit l'appeler dans le constructeur enfant
+        parent::__construct();
         $this->model = new ArticleModel;
     }
 

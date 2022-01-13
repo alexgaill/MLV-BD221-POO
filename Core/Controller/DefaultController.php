@@ -6,6 +6,11 @@ use App\Trait\SecurityTrait;
 class DefaultController {
     use SecurityTrait;
 
+    public function __construct()
+    {
+        
+    }
+
     protected function render(string $pathView, array $params = [])
     {
         ob_start();
