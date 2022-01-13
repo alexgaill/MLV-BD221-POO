@@ -1,6 +1,8 @@
 <?php
 use App\Controller\ArticleController;
 use App\Controller\ErrorController;
+use App\Fixtures\AppFixtures;
+use Classe\Magique;
 
 if (isset($_GET["page"]))
 {
@@ -16,6 +18,9 @@ if (isset($_GET["page"]))
             break;
         case 'deleteArt':
             (new ArticleController)->delete();
+            break;
+        case 'fixtures':
+            (new AppFixtures)->load();
             break;
         
         default:

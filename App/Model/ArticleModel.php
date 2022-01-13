@@ -2,10 +2,18 @@
 namespace App\Model;
 
 use App\Entity\Article;
-use Core\Database\Database;
+use Core\Model\DefaultModel;
 
-class ArticleModel extends Database{
+/**
+ * @method Article|bool find(int $id)
+ * @method bool delete(int $id)
+ */
+class ArticleModel extends DefaultModel{
 
+    /**
+     * @var string
+     */
+    protected string $table = "article";
 
     /**
      * Retourne les 5 derniers articles de la BDD
@@ -17,19 +25,6 @@ class ArticleModel extends Database{
         $statement = "SELECT * FROM article ORDER BY id DESC LIMIT 5";
         $query = $this->pdo->query($statement, \PDO::FETCH_CLASS, "App\Entity\Article");
         return $query->fetchAll();
-    }
-
-    /**
-     * Retourne un article en fonction de l'id passé
-     *
-     * @param integer $id
-     * @return Article
-     */
-    public function find(int $id): Article
-    {
-        $statement = "SELECT * FROM article WHERE id = $id";
-        $query = $this->pdo->query($statement, \PDO::FETCH_CLASS, "App\Entity\Article");
-        return $query->fetch();
     }
 
     /**
@@ -61,9 +56,9 @@ class ArticleModel extends Database{
      *
      * @param array $data
      * @param integer $id
-     * @return integer
+     * @return boolean
      */
-    public function update (array $data, int $id): int
+    public function update (array $data, int $id): bool
     {
         $statement = "UPDATE article SET 
                              title = :title,
@@ -71,20 +66,19 @@ class ArticleModel extends Database{
                              categorie_id = :categorie_id
                              WHERE id = $id";
         $prepare = $this->pdo->prepare($statement);
-        $prepare->execute($data);
-        return $this->pdo->lastInsertId();
+        return $prepare->execute($data);
     }
 
     /**
-     * Supprime un article dans la BDD
+     * Retourne les articles possédant la catégorie sélectionnée
      *
-     * @param int $id
-     * @return boolean
+     * @param integer $id
+     * @return array
      */
-    public function delete(int $id): bool
+    public function findByCat(int $id): array
     {
-        $statement = "DELETE FROM article WHERE id = $id";
-        $prepare = $this->pdo->prepare($statement);
-        return $prepare->execute();
+        $statement = "SELECT id, title FROM article WHERE categorie_id = $id";
+        $query = $this->pdo->query($statement, \PDO::FETCH_CLASS, "App\Entity\Article");
+        return $query->fetchAll();
     }
 }

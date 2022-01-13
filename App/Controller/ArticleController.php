@@ -93,10 +93,9 @@ class ArticleController extends DefaultController{
             isset($_POST["categorie_id"]) && !empty($_POST["categorie_id"])
         ){
             $article = new Article($_POST);
-            $articleId = $this->model->update($article(), $id);
-            if ($articleId > 0) {
-                header("Location: ?page=singleArt&id=$articleId");
-
+            $articleBool = $this->model->update($article(), $id);
+            if ($articleBool == true) {
+                header("Location: ?page=singleArt&id=$id");
             } else {
                 $this->render("error/error", [
                     "message" => "Une erreur s'est produite durant la mise à jour de l'article."
