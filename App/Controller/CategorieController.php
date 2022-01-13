@@ -6,7 +6,7 @@ use App\Model\ArticleModel;
 use App\Model\CategorieModel;
 use Core\Controller\DefaultController;
 
-class CategorieController extends DefaultController
+final class CategorieController extends DefaultController
 {
 
     public function __construct()

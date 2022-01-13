@@ -5,7 +5,7 @@ use App\Model\ArticleModel;
 use App\Model\CategorieModel;
 use Faker\Factory;
 
-class AppFixtures{
+final class AppFixtures{
 
     public function load()
     {

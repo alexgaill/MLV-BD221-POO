@@ -5,27 +5,18 @@ use App\Entity\Categorie;
 use Core\Model\DefaultModel;
 
 /**
+ * @method array|bool findAll()
  * @method Categorie|bool find(int $id)
- * @method bool delete(int $id)
+ * @method bool delete(int $id) 
+ * @method array|bool findBy(array $criteria)
+ * @method object|bool findOneBy(array $criteria)
  */
-class CategorieModel extends DefaultModel{
+final class CategorieModel extends DefaultModel{
 
     /**
      * @var string
      */
     protected string $table = "categorie";
-
-    /**
-     * Retourne toutes les catégories de la BDD
-     *
-     * @return array
-     */
-    public function findAll(): array
-    {
-        $statementCat = "SELECT * FROM categorie";
-        $query = $this->pdo->query($statementCat, \PDO::FETCH_CLASS, "App\Entity\Categorie");
-        return $query->fetchAll();
-    }
 
     /**
      * Ajoute une catégorie en BDD

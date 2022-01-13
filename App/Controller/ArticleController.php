@@ -6,7 +6,14 @@ use App\Model\ArticleModel;
 use App\Model\CategorieModel;
 use Core\Controller\DefaultController;
 
-class ArticleController extends DefaultController{
+/**
+ * Une class final est une class qui ne peut pas servir de class parent.
+ * 
+ * Cette class ne peut donc pas être extends, et ne peut pas avoir de méthodes abstract.
+ * abstract etr final sont des opposés. L'erreur suivante apparaitra:
+ * Cannot use the final modifier on an abstract class
+ */
+final class ArticleController extends DefaultController{
 
     public function __construct()
     {
@@ -53,6 +60,7 @@ class ArticleController extends DefaultController{
             isset($_POST["content"]) && !empty($_POST["content"]) &&
             isset($_POST["categorieId"]) && !empty($_POST["categorieId"])
         ){
+            $_POST = $this->secureData($_POST);
             $article = new Article($_POST);
             $articleId = $this->model->save($article());
             if ($articleId > 0) {

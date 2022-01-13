@@ -2,7 +2,7 @@
 
 namespace Core\Database;
 
-class Database
+abstract class Database
 {
     /**
      * @var string
@@ -54,6 +54,36 @@ class Database
         foreach ($config as $key => $value) {
             $this->$key = $value;
         }
-
     }
+
+    /**
+     * Retourne tous les éléments d'une table de la BDD
+     *
+     * @return array|boolean
+     */
+    abstract function findAll(): array|bool;
+
+    /**
+     * Retourne un élément d'une table de la BDD en fonction de l'id passé
+     *
+     * @param integer $id
+     * @return object|boolean
+     */
+    abstract function find(int $id): object|bool;
+
+    /**
+     * Retourne tous les éléments d'une table correspondants aux critères passés
+     *
+     * @param array $criteria
+     * @return array|boolean
+     */
+    abstract function findBy(array $criteria): array|bool;
+
+    /**
+     * Retourne un élément d'une table correspondant aux critères passés
+     *
+     * @param array $criteria
+     * @return object|boolean
+     */
+    abstract function findOneBy(array $criteria): object|bool;
 }

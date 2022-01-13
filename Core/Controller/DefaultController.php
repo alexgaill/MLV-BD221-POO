@@ -1,7 +1,10 @@
 <?php
 namespace Core\Controller;
 
+use App\Trait\SecurityTrait;
+
 class DefaultController {
+    use SecurityTrait;
 
     protected function render(string $pathView, array $params = [])
     {

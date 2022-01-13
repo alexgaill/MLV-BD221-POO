@@ -5,10 +5,13 @@ use App\Entity\Article;
 use Core\Model\DefaultModel;
 
 /**
+ * @method array|bool findAll()
  * @method Article|bool find(int $id)
+ * @method array|bool findBy(array $criteria)
+ * @method object|bool findOneBy(array $criteria)
  * @method bool delete(int $id)
  */
-class ArticleModel extends DefaultModel{
+final class ArticleModel extends DefaultModel{
 
     /**
      * @var string
@@ -35,6 +38,7 @@ class ArticleModel extends DefaultModel{
      */
     public function save (array $data): int
     {
+        var_dump(isset($_SESSION["user"]));
         $statement = "INSERT INTO article (title, content, categorie_id, user_id)
                                VALUES (:title, :content, :categorie_id, 1)";
 
